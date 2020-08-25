@@ -44,8 +44,12 @@ internal class KeepAliveHandler(
         scope.launch {
             while (isActive) {
                 delay(keepAlive.interval)
-                if (lastMark.value!!.elapsedNow() >= keepAlive.maxLifetime) {
-                    throw RSocketError.ConnectionError("No keep-alive for ${keepAlive.maxLifetime}")
+                try {
+                    if (lastMark.value!!.elapsedNow() >= keepAlive.maxLifetime) {
+                        throw RSocketError.ConnectionError("No keep-alive for ${keepAlive.maxLifetime}")
+                    }
+                } catch (nsme: Error) {
+                    // damn
                 }
                 offerFrame(KeepAliveFrame(true, 0, ByteReadPacket.Empty))
             }
