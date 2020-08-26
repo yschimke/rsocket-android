@@ -64,7 +64,7 @@ subprojects {
                     }
                     is KotlinJvmTarget -> {
                         compilations.all {
-                            kotlinOptions { jvmTarget = "1.6" }
+                            kotlinOptions { jvmTarget = "1.8" }
                         }
                     }
                 }
@@ -73,8 +73,6 @@ subprojects {
             sourceSets.all {
                 languageSettings.apply {
                     progressiveMode = true
-                    languageVersion = "1.4"
-                    apiVersion = "1.4"
 
                     useExperimentalAnnotation("kotlin.RequiresOptIn")
 
